@@ -24,7 +24,7 @@
         <label>Choose ZIP<input id="zip-input" type="file" accept=".zip" hidden></label>
         <label>Choose folder<input id="folder-input" type="file" webkitdirectory multiple hidden></label>
       </div>
-      <small>Allowed: {{ allowed_extensions | join(', ') }}</small>
+      <small>Allowed: {{ allowed_extensions | join(sep=', ') }}</small>
     </div>
     <button id="logout-button" class="logout-button" type="button">Sign out</button>
   </aside>
