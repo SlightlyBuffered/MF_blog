@@ -17,7 +17,7 @@ There is no content database. Article discovery, publication state, rendering, a
 
 ## Requirements
 
-- Rust 1.85 or newer
+- Rust 1.88 or newer
 - A modern browser
 - Chromium-based browser recommended for folder upload support
 
