@@ -11,7 +11,7 @@ use std::{
 use axum::{
     extract::DefaultBodyLimit,
     http::{
-        header::{CACHE_CONTROL, CONTENT_SECURITY_POLICY, HeaderName, HeaderValue, PERMISSIONS_POLICY, REFERRER_POLICY, X_CONTENT_TYPE_OPTIONS},
+        header::{CACHE_CONTROL, HeaderName, HeaderValue},
         Request,
     },
     middleware::{self, Next},
@@ -172,17 +172,17 @@ pub async fn security_headers(request: Request<axum::body::Body>, next: Next) ->
     let mut response = next.run(request).await;
     let headers = response.headers_mut();
 
-    headers.entry(X_CONTENT_TYPE_OPTIONS).or_insert(HeaderValue::from_static("nosniff"));
+    headers.entry(HeaderName::from_static("x-content-type-options")).or_insert(HeaderValue::from_static("nosniff"));
     headers
         .entry(HeaderName::from_static("x-frame-options"))
         .or_insert(HeaderValue::from_static("DENY"));
     headers
-        .entry(REFERRER_POLICY)
+        .entry(HeaderName::from_static("referrer-policy"))
         .or_insert(HeaderValue::from_static("same-origin"));
     headers
-        .entry(PERMISSIONS_POLICY)
+        .entry(HeaderName::from_static("permissions-policy"))
         .or_insert(HeaderValue::from_static("camera=(), microphone=(), geolocation=()"));
-    headers.entry(CONTENT_SECURITY_POLICY).or_insert(HeaderValue::from_static(
+    headers.entry(HeaderName::from_static("content-security-policy")).or_insert(HeaderValue::from_static(
         "default-src 'self'; img-src 'self' data: https:; media-src 'self'; \
          style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'none'; \
          frame-ancestors 'none'; form-action 'self'",
