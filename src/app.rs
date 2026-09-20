@@ -198,3 +198,14 @@ pub async fn security_headers(request: Request<axum::body::Body>, next: Next) ->
 pub fn remote_key(address: SocketAddr) -> String {
     address.ip().to_string()
 }
+
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn templates_compile() {
+        let tera = tera::Tera::new("templates/**/*").expect("all templates should parse");
+        assert!(tera.get_template_names().any(|name| name == "base.html"));
+        assert!(tera.get_template_names().any(|name| name == "writer.html"));
+    }
+}
