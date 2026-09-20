@@ -85,13 +85,7 @@ The Writer UI represents `draft` with a **Published** checkbox and matching tool
 
 ## Markdown behavior
 
-Rendering uses Python-Markdown with these extensions:
-
-- `extra`: tables, fenced code, footnotes, definition lists, and common extras.
-- `sane_lists`: predictable ordered/unordered lists.
-- `smarty`: typographic punctuation.
-
-Rendered HTML is sanitized with Bleach. Scripts, event attributes, iframes, objects, and arbitrary raw HTML are not retained. This is intentional even for locally authored content: imported folders are an input boundary.
+Rendering uses `pulldown-cmark` with the supported CommonMark extensions enabled. Rendered HTML is sanitized with `ammonia`. Scripts, event attributes, iframes, objects, and arbitrary raw HTML are not retained. This is intentional even for locally authored content: imported folders are an input boundary.
 
 Supported prose includes headings, lists, links, images, blockquotes, code, tables, deletion text, and horizontal rules.
 
