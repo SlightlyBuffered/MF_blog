@@ -1,6 +1,6 @@
 # Writer HTTP API
 
-The API is an implementation surface for the bundled Writer, not a versioned public service. It uses the authenticated Flask session cookie and requires `X-CSRF-Token` on every mutating request.
+The API is an implementation surface for the bundled Writer, not a versioned public service. It uses MF-Blog's authenticated signed session cookie and requires `X-CSRF-Token` on every mutating request.
 
 The token is emitted into the Writer page:
 
