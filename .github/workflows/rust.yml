@@ -5,6 +5,9 @@ on:
     branches: [main, rust-refactor]
   pull_request:
 
+permissions:
+  contents: write
+
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -16,7 +19,12 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - run: cargo check --all-targets --all-features
       - run: cargo test --all
-      - uses: actions/upload-artifact@v4
-        with:
-          name: cargo-lock
-          path: Cargo.lock
+      - name: Commit generated Cargo.lock
+        if: github.event_name == 'push' && github.ref == 'refs/heads/rust-refactor'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Cargo.lock
+          git diff --cached --quiet && exit 0
+          git commit -m "Commit Cargo.lock"
+          git push
