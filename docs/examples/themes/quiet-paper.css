@@ -1,0 +1,40 @@
+/* Copy to static/theme.css. Reading-first, low-chroma newspaper treatment. */
+:root {
+  --color-ink: #27251f;
+  --color-paper: #fbfaf5;
+  --color-accent: #31558a;
+  --color-line: #d8d3c7;
+  --color-muted: #706c63;
+  --color-subtle: #59564f;
+  --color-panel: #f3f1ea;
+  --color-panel-strong: #e9e5da;
+  --color-workspace: #efede6;
+  --color-inline-code: #ece8de;
+  --font-display: Constantia, Georgia, ui-serif, serif;
+  --font-prose: Charter, Constantia, Georgia, ui-serif, serif;
+  --content-width: 66rem;
+  --reader-width: 48rem;
+  --prose-width: 40rem;
+  --card-image-ratio: 4 / 3;
+}
+
+[data-template="home"] .intro {
+  padding-block: 6rem 4rem;
+}
+
+[data-template="home"] .intro h1 {
+  max-width: 12ch;
+  font-size: clamp(3rem, 7vw, 6rem);
+  line-height: .98;
+}
+
+.card img,
+.hero {
+  filter: grayscale(.65) contrast(1.04);
+}
+
+.prose {
+  font-size: 1.12rem;
+  line-height: 1.82;
+}
+

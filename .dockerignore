@@ -1,0 +1,14 @@
+.git
+.gitignore
+.venv
+__pycache__
+*.py[cod]
+.pytest_cache
+.ruff_cache
+*.egg-info
+.mf-blog-auth.json
+.mf-blog-session-key
+.mf-blog-trash
+articles
+tests
+compose.yaml

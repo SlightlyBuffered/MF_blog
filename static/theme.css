@@ -1,0 +1,14 @@
+/*
+ * User-owned theme overrides. This file loads after every core stylesheet.
+ * Keep core layout rules in style.css/writer.css/auth.css and place your
+ * visual changes here so engine upgrades remain painless.
+ *
+ * Full token reference and examples: docs/CUSTOMIZATION.md
+ */
+
+:root {
+  /* Uncomment and edit any token. */
+  /* --color-accent: #4d65ff; */
+  /* --font-display: ui-serif, Georgia, serif; */
+  /* --content-width: 76rem; */
+}

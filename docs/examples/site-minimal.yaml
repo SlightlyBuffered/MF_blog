@@ -1,0 +1,11 @@
+name: Dave's Notes
+wordmark: DAVE'S NOTES
+tagline: Technical notes and project updates.
+language: en
+
+home:
+  eyebrow: Recent writing
+  title: |-
+    Notes from
+    the workshop.
+  empty: Nothing published yet.

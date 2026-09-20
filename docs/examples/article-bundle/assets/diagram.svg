@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" role="img" aria-labelledby="title desc">
+  <title id="title">Portable MF-Blog article</title>
+  <desc id="desc">A folder containing article.md and an assets directory.</desc>
+  <rect width="960" height="480" fill="#f3f0e7"/>
+  <path d="M130 120h260l60 64h380v220H130z" fill="#ff4d00" stroke="#171713" stroke-width="12"/>
+  <g fill="#171713" font-family="monospace" font-size="34" font-weight="700">
+    <text x="180" y="270">article.md</text>
+    <text x="180" y="330">assets/</text>
+  </g>
+</svg>

@@ -1,0 +1,33 @@
+/* Copy to static/theme.css. Dark editorial blue across every surface. */
+:root {
+  --color-ink: #e8edf7;
+  --color-paper: #101624;
+  --color-accent: #ffb000;
+  --color-line: #34405a;
+  --color-muted: #9aa7bd;
+  --color-subtle: #b6c0d1;
+  --color-panel: #161f31;
+  --color-panel-strong: #0c1220;
+  --color-workspace: #121a29;
+  --color-code-bg: #060a12;
+  --color-code-ink: #d8e4ff;
+  --color-inline-code: #202c43;
+  --color-danger: #ff735c;
+  --color-success: #72d29a;
+  --color-auth-bg: #080d17;
+  --color-auth-panel: #101827;
+  --color-auth-line: #34405a;
+  --color-auth-muted: #9aa7bd;
+  --font-display: Cambria, Georgia, ui-serif, serif;
+  --card-image-ratio: 3 / 2;
+}
+
+[data-template="home"] .card img,
+[data-template="article"] .hero {
+  filter: saturate(.65) contrast(1.08);
+}
+
+[data-template="writer"] .markdown-pane textarea {
+  caret-color: var(--color-accent);
+}
+

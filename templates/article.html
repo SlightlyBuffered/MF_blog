@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{ article.title }} — {{ site.name }}{% endblock %}
+{% block template_name %}article{% endblock %}
+{% block content %}
+  <article class="article">
+    <header class="article-header">
+      <a class="back" href="{{ url_for('index') }}">← All articles</a>
+      <time datetime="{{ article.published_at.isoformat() }}">{{ article.published_at.strftime('%d %B %Y') }}</time>
+      <h1>{{ article.title }}</h1>
+      {% if article.subtitle %}<p>{{ article.subtitle }}</p>{% endif %}
+    </header>
+    {% if article.hero_url %}<img class="hero" src="{{ article.hero_url }}" alt="">{% endif %}
+    <div class="prose">{{ content | safe }}</div>
+  </article>
+{% endblock %}

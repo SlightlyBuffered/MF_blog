@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750">
+  <rect width="1200" height="750" fill="#ff4d00"/>
+  <path d="M170 220h330l70 80h460v300H170z" fill="#f3f0e7" stroke="#171713" stroke-width="18"/>
+  <text x="205" y="480" font-family="monospace" font-size="74" font-weight="bold" fill="#171713">ARTICLE.MD</text>
+  <circle cx="985" cy="145" r="62" fill="#171713"/>
+</svg>
+

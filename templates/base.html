@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="{{ site.language }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ site.name }}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  {% block head %}{% endblock %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
+</head>
+<body class="{% block body_class %}{% endblock %}" data-template="{% block template_name %}base{% endblock %}">
+  <header class="site-header">
+    <a href="{{ url_for('index') }}" class="brand">{{ site.wordmark }}</a>
+    <span class="tagline">{{ site.tagline }}</span>
+  </header>
+  <main class="{% block main_class %}{% endblock %}">{% block content %}{% endblock %}</main>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

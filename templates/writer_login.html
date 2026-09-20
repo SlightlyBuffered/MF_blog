@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Writer sign in — {{ site.name }}{% endblock %}
+{% block template_name %}writer-login{% endblock %}
+{% block head %}<link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}">{% endblock %}
+{% block body_class %}auth-body{% endblock %}
+{% block main_class %}auth-main{% endblock %}
+{% block content %}
+<section class="auth-card">
+  <div class="auth-number">01</div>
+  <p class="eyebrow">Writer authentication</p>
+  <h1>Sign in.</h1>
+  <p class="auth-intro">Sign in to manage articles and publication settings.</p>
+  {% if created %}<div class="auth-success">Account created. Sign in to continue.</div>{% endif %}
+  {% if error %}<div class="auth-error">{{ error }}</div>{% endif %}
+  <form method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <label><span>Username</span><input name="username" required autocomplete="username" autofocus></label>
+    <label><span>Password</span><input name="password" type="password" required autocomplete="current-password"></label>
+    {% if totp_enabled %}
+      <label><span>TOTP code</span><input name="totp" inputmode="numeric" pattern="[0-9 ]{6,7}" maxlength="7" autocomplete="one-time-code" required></label>
+    {% else %}
+      <div class="totp-sleeping"><span></span>TOTP is disabled</div>
+    {% endif %}
+    <button type="submit">Sign in <span>→</span></button>
+  </form>
+</section>
+{% endblock %}

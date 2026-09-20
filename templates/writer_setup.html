@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Set up Writer — {{ site.name }}{% endblock %}
+{% block template_name %}writer-setup{% endblock %}
+{% block head %}<link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}">{% endblock %}
+{% block body_class %}auth-body{% endblock %}
+{% block main_class %}auth-main{% endblock %}
+{% block content %}
+<section class="auth-card">
+  <div class="auth-number">00</div>
+  <p class="eyebrow">First-run setup</p>
+  <h1>Create writer account.</h1>
+  <p class="auth-intro">MF-Blog supports one writer account. The password is stored as an Argon2id hash.</p>
+  {% if error %}<div class="auth-error">{{ error }}</div>{% endif %}
+  <form method="post" autocomplete="off">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <label><span>Username</span><input name="username" required minlength="3" maxlength="64" pattern="[A-Za-z0-9_.-]+" autofocus></label>
+    <label><span>Passphrase</span><input name="password" type="password" required minlength="12" autocomplete="new-password"></label>
+    <label><span>Confirm passphrase</span><input name="password_confirmation" type="password" required minlength="12" autocomplete="new-password"></label>
+    <button type="submit">Create account <span>→</span></button>
+  </form>
+</section>
+{% endblock %}

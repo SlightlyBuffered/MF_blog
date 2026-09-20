@@ -1,0 +1,13 @@
+# Text and identity shown by the default templates. Changes are picked up on
+# the next request; restarting the server is not necessary.
+name: MF-Blog
+wordmark: MF-Blog
+tagline: Markdown publishing, organized by folders.
+language: en
+
+home:
+  eyebrow: Latest articles
+  title: |-
+    Writing, published
+    from Markdown.
+  empty: No articles have been published yet.

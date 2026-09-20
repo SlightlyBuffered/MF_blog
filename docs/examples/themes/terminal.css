@@ -1,0 +1,51 @@
+/* Copy to static/theme.css. Monospace terminal mode without external fonts. */
+:root {
+  --color-ink: #b8ffb1;
+  --color-paper: #071008;
+  --color-accent: #72ff63;
+  --color-line: #24502a;
+  --color-muted: #72a878;
+  --color-subtle: #91c496;
+  --color-panel: #0a170c;
+  --color-panel-strong: #050c06;
+  --color-workspace: #071008;
+  --color-code-bg: #000;
+  --color-code-ink: #b8ffb1;
+  --color-inline-code: #102814;
+  --color-danger: #ff6a61;
+  --color-success: #72ff63;
+  --color-auth-bg: #020603;
+  --color-auth-panel: #071008;
+  --color-auth-line: #24502a;
+  --color-auth-muted: #72a878;
+  --font-ui: ui-monospace, SFMono-Regular, Consolas, monospace;
+  --font-display: ui-monospace, SFMono-Regular, Consolas, monospace;
+  --font-prose: ui-monospace, SFMono-Regular, Consolas, monospace;
+  --font-mono: ui-monospace, SFMono-Regular, Consolas, monospace;
+  --content-width: 76rem;
+  --radius-small: 0;
+}
+
+.brand::before { content: "> "; }
+.brand span { display: none; }
+
+[data-template="home"] .intro h1,
+[data-template="article"] .article-header h1 {
+  text-transform: uppercase;
+  letter-spacing: -.08em;
+}
+
+.card img,
+.hero,
+.prose img {
+  filter: grayscale(1) sepia(1) hue-rotate(65deg) saturate(2);
+  border: 1px solid var(--color-line);
+}
+
+button,
+input,
+textarea,
+dialog {
+  border-radius: 0 !important;
+}
+

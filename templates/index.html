@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}{{ site.name }} — Latest{% endblock %}
+{% block template_name %}home{% endblock %}
+{% block content %}
+  <section class="intro">
+    <p class="eyebrow">{{ site.home.eyebrow }}</p>
+    <h1>{{ site.home.title }}</h1>
+  </section>
+
+  {% if errors and config.DEBUG %}
+    <aside class="errors"><strong>Content errors</strong><ul>{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul></aside>
+  {% endif %}
+
+  <section class="article-grid">
+    {% for article in articles %}
+      <article class="card">
+        <a href="{{ article.url }}">
+          {% if article.hero_url %}<img src="{{ article.hero_url }}" alt="" loading="lazy">{% endif %}
+          <div class="card-copy">
+            <time datetime="{{ article.published_at.isoformat() }}">{{ article.published_at.strftime('%d %b %Y') }}</time>
+            <h2>{{ article.title }}</h2>
+            <p>{{ article.subtitle }}</p>
+          </div>
+        </a>
+      </article>
+    {% else %}
+      <p>{{ site.home.empty }}</p>
+    {% endfor %}
+  </section>
+{% endblock %}

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360">
+  <rect width="900" height="360" fill="#e5e0d4"/>
+  <g font-family="monospace" font-size="28" fill="#171713">
+    <text x="70" y="70">hello-folders/</text>
+    <text x="110" y="125">├── article.md</text>
+    <text x="110" y="180">└── assets/</text>
+    <text x="150" y="235">├── hero.svg</text>
+    <text x="150" y="290">└── folder-diagram.svg</text>
+  </g>
+</svg>
+

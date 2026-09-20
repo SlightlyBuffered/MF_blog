@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block title %}Writer — {{ site.name }}{% endblock %}
+{% block template_name %}writer{% endblock %}
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='writer.css') }}">
+  <meta name="csrf-token" content="{{ csrf_token }}">
+{% endblock %}
+{% block body_class %}writer-body{% endblock %}
+{% block main_class %}writer-main{% endblock %}
+{% block content %}
+<section class="writer-shell">
+  <button id="sidebar-toggle" class="mobile-sidebar-toggle" type="button" aria-controls="writer-sidebar" aria-expanded="false">Articles</button>
+  <button id="sidebar-backdrop" class="sidebar-backdrop" type="button" aria-label="Close article list" tabindex="-1"></button>
+  <aside class="writer-sidebar" id="writer-sidebar">
+    <div class="writer-sidebar-head">
+      <div><span class="writer-kicker">Publishing workspace</span><h1>Writer</h1></div>
+      <button id="new-article" class="icon-button" title="New article">＋</button>
+    </div>
+    <div id="article-list" class="article-list"></div>
+    <div class="import-box" id="import-drop">
+      <strong>Drop a folder or ZIP</strong>
+      <span>article.md + approved assets</span>
+      <div class="import-actions">
+        <label>Choose ZIP<input id="zip-input" type="file" accept=".zip" hidden></label>
+        <label>Choose folder<input id="folder-input" type="file" webkitdirectory multiple hidden></label>
+      </div>
+      <small>Allowed: {{ allowed_extensions | join(', ') }}</small>
+    </div>
+    <button id="logout-button" class="logout-button" type="button">Sign out</button>
+  </aside>
+
+  <section class="writer-workbench">
+    <div id="empty-state" class="empty-state">
+      <p class="eyebrow">No article selected</p>
+      <h2>Select an article or create a new one.</h2>
+    </div>
+    <form id="editor" class="editor" hidden>
+      <div class="writer-toolbar">
+        <div class="save-state"><span id="dirty-dot"></span><span id="save-message">Saved</span><strong id="editor-status"></strong></div>
+        <div class="mobile-pane-switch" role="group" aria-label="Editor pane">
+          <button type="button" data-pane="markdown" class="active">Write</button>
+          <button type="button" data-pane="preview">Preview</button>
+        </div>
+        <div class="toolbar-actions">
+          <button id="metadata-toggle" class="secondary-button metadata-toggle" type="button" aria-controls="metadata-panel" aria-expanded="true" title="Toggle metadata (Ctrl+Shift+M)">Metadata ↑</button>
+          <button id="delete-article" class="danger-button" type="button">Delete</button>
+          <a id="public-link" class="secondary-button" target="_blank">Open article ↗</a>
+          <button id="publish-action" class="publish-button" type="button">Publish</button>
+          <button class="primary-button" type="submit">Save article</button>
+        </div>
+      </div>
+
+      <div class="metadata-grid" id="metadata-panel">
+        <label>Slug<input name="slug" required pattern="[a-z0-9]+(?:-[a-z0-9]+)*" autocomplete="off"></label>
+        <label>Title<input name="title" required autocomplete="off"></label>
+        <label class="wide">Subtitle<input name="subtitle" autocomplete="off"></label>
+        <label>Publication<input name="publication_date" type="datetime-local" required></label>
+        <label>Release<input name="release_date" type="datetime-local" required></label>
+        <label class="wide">Hero path<input name="hero" placeholder="assets/hero.webp" autocomplete="off"></label>
+        <label class="publish-toggle"><input name="published" type="checkbox"> Published</label>
+      </div>
+
+      <div class="split-editor">
+        <section class="markdown-pane">
+          <div class="pane-title">
+            <div class="pane-label"><strong>Markdown</strong><span>article.md</span></div>
+            <div class="markdown-tools" role="toolbar" aria-label="Markdown formatting">
+              <button type="button" data-command="undo" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button>
+              <button type="button" data-command="redo" title="Redo (Ctrl+Y or Ctrl+Shift+Z)" aria-label="Redo">↷</button>
+              <button type="button" data-command="bold" title="Bold (Ctrl+B)" aria-label="Bold"><strong>B</strong></button>
+              <button type="button" data-command="italic" title="Italic (Ctrl+I)" aria-label="Italic"><em>I</em></button>
+              <button type="button" data-command="link" title="Link (Ctrl+K)">Link</button>
+              <button type="button" data-command="code" title="Inline code">Code</button>
+              <button type="button" data-command="heading" title="Heading level 2">H2</button>
+              <button type="button" data-command="quote" title="Quote">Quote</button>
+              <button type="button" data-command="list" title="Bulleted list">List</button>
+            </div>
+          </div>
+          <textarea name="body" spellcheck="true"></textarea>
+        </section>
+        <section class="preview-pane">
+          <div class="pane-title"><strong>Preview</strong><span id="preview-state">Live</span></div>
+          <article id="preview" class="prose"></article>
+        </section>
+      </div>
+
+      <section class="asset-dock">
+        <div>
+          <strong>Assets</strong>
+          <span>Click a filename to insert it</span>
+        </div>
+        <div id="asset-list" class="asset-list"></div>
+        <label class="upload-button">Upload assets<input id="asset-input" type="file" multiple hidden></label>
+      </section>
+    </form>
+  </section>
+</section>
+
+<dialog id="new-dialog">
+  <form method="dialog" id="new-form">
+    <button class="dialog-close" value="cancel" aria-label="Close">×</button>
+    <p class="eyebrow">New article</p>
+    <h2>Give the folder a name.</h2>
+    <label>Slug<input name="slug" placeholder="new-article" required pattern="[a-z0-9]+(?:-[a-z0-9]+)*"></label>
+    <label>Title<input name="title" placeholder="New Article" required></label>
+    <button class="primary-button" value="create">Create article</button>
+  </form>
+</dialog>
+
+<dialog id="delete-dialog">
+  <form method="dialog" id="delete-form">
+    <button class="dialog-close" value="cancel" aria-label="Close">×</button>
+    <p class="eyebrow">Delete article</p>
+    <h2>Trash <span id="delete-title"></span>?</h2>
+    <p>The complete article folder will move into <code>.mf-blog-trash</code> and can be restored manually.</p>
+    <div class="dialog-actions">
+      <button class="secondary-button" value="cancel">Keep it</button>
+      <button class="danger-button" value="delete">Move to trash</button>
+    </div>
+  </form>
+</dialog>
+
+<div id="toast" role="status"></div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='writer.js') }}" defer></script>{% endblock %}

@@ -1,0 +1,25 @@
+services:
+  mf-blog:
+    build:
+      context: .
+      args:
+        APP_UID: ${MF_BLOG_UID:-1000}
+        APP_GID: ${MF_BLOG_GID:-1000}
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      BLOG_ARTICLE_ROOT: /app/articles
+      BLOG_AUTH_FILE: /data/.mf-blog-auth.json
+      BLOG_SESSION_KEY_FILE: /data/.mf-blog-session-key
+      BLOG_TRASH_ROOT: /data/.mf-blog-trash
+      BLOG_SITE_FILE: /app/site.yaml
+      WRITER_ALLOW_REMOTE: "1"
+    volumes:
+      - ./articles:/app/articles
+      - ./site.yaml:/app/site.yaml:ro
+      - ./static/theme.css:/app/static/theme.css:ro
+      - mf-blog-state:/data
+    restart: unless-stopped
+
+volumes:
+  mf-blog-state:
