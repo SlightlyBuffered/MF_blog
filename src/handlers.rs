@@ -693,7 +693,7 @@ pub async fn writer_upload_assets(
             Err(error) => return json_error(StatusCode::BAD_REQUEST, error),
         };
         if relative.components().next().map(|part| part.as_os_str() == "assets").unwrap_or(false) {
-            relative = relative.components().skip(1).collect();
+            relative = relative.iter().skip(1).collect::<PathBuf>();
         }
         if relative.as_os_str().is_empty() || !content::asset_extension_allowed(&relative) {
             return json_error(StatusCode::BAD_REQUEST, format!("file type is not allowed: {}", relative.display()));
