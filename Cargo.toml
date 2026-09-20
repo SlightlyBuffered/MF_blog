@@ -7,6 +7,7 @@ description = "A filesystem-first Markdown publishing engine"
 license = "Apache-2.0"
 
 [dependencies]
+ammonia = "4.0"
 argon2 = "0.5"
 axum = { version = "0.7", features = ["multipart"] }
 base64 = "0.22"
