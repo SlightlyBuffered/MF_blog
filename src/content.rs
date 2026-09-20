@@ -122,7 +122,7 @@ pub fn load_site_config(path: &Path) -> Result<SiteConfig, String> {
         ("tagline", &mut config.tagline),
         ("language", &mut config.language),
     ] {
-        if let Some(value) = mapping.get(Value::String(key.to_string())) {
+        if let Some(value) = mapping.get(&Value::String(key.to_string())) {
             let text = value
                 .as_str()
                 .ok_or_else(|| format!("site.yaml field {key:?} must be a non-empty string"))?
@@ -134,7 +134,7 @@ pub fn load_site_config(path: &Path) -> Result<SiteConfig, String> {
         }
     }
 
-    if let Some(home) = mapping.get(Value::String("home".to_string())) {
+    if let Some(home) = mapping.get(&Value::String("home".to_string())) {
         let home = home
             .as_mapping()
             .ok_or_else(|| "site.yaml field 'home' must be a mapping".to_string())?;
@@ -143,7 +143,7 @@ pub fn load_site_config(path: &Path) -> Result<SiteConfig, String> {
             ("title", &mut config.home.title),
             ("empty", &mut config.home.empty),
         ] {
-            if let Some(value) = home.get(Value::String(key.to_string())) {
+            if let Some(value) = home.get(&Value::String(key.to_string())) {
                 *target = value
                     .as_str()
                     .ok_or_else(|| format!("site.yaml home.{key} must be a string"))?
@@ -195,7 +195,7 @@ pub fn split_front_matter(text: &str) -> Result<(Mapping, String), String> {
 
 fn map_get<'a>(mapping: &'a Mapping, keys: &[&str]) -> Option<&'a Value> {
     keys.iter()
-        .find_map(|key| mapping.get(Value::String((*key).to_string())))
+        .find_map(|key| mapping.get(&Value::String((*key).to_string())))
 }
 
 fn required_string(mapping: &Mapping, key: &str) -> Result<String, String> {
