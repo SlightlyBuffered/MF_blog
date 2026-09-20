@@ -8,7 +8,7 @@ Check the article state:
 - A future `release_date` keeps it scheduled.
 - An invalid YAML document is skipped.
 
-Open Writer; discovery errors appear there. In Flask debug mode, content errors also appear on the homepage.
+Open Writer; discovery errors appear there. With `MF_BLOG_DEBUG=1`, content errors also appear on the homepage.
 
 ## An article route returns 404
 
@@ -92,7 +92,7 @@ If `docker compose up --build` reports that it cannot connect to the Docker API,
 
 ## Writer returns 403 in Docker
 
-Requests from the host cross the container network and are not loopback addresses from Flask's perspective. Keep this setting in the Compose service:
+Requests from the host cross the container network and are not loopback addresses from the service's perspective. Keep this setting in the Compose service:
 
 ```yaml
 environment:
