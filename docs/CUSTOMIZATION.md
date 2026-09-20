@@ -20,7 +20,7 @@ home:
   empty: No articles have been published yet.
 ```
 
-The file is loaded on each rendered request, so changes do not require restarting Flask.
+The file is loaded on each rendered request, so changes do not require restarting the service.
 
 | Field | Used for |
 | --- | --- |
@@ -149,7 +149,7 @@ The default Writer switches its article rail into an overlay drawer at `800px`, 
 
 ## Layer 4: template changes
 
-Edit Jinja templates when CSS cannot express the structural change.
+Edit Tera templates when CSS cannot express the structural change.
 
 `templates/base.html` provides these blocks:
 
@@ -188,7 +188,7 @@ Examples are plain CSS rather than build artifacts. They can be copied in full o
 3. Avoid editing core styles unless adding a new reusable token or component.
 4. When overriding structure, copy only the relevant template and document the divergence.
 5. Run visual checks at desktop and narrow widths.
-6. Run `ruff` and `pytest`; themes should not require Python changes.
+6. Run `cargo check --all-targets --all-features` and `cargo test --all`; themes should not require Rust changes.
 
 ## Accessibility checklist
 
