@@ -16,7 +16,7 @@ use axum::{
     },
     middleware::{self, Next},
     response::Response,
-    routing::{delete, get, post, put},
+    routing::{get, post},
     Router,
 };
 use chrono_tz::Tz;
@@ -119,22 +119,14 @@ fn env_path(name: &str, fallback: PathBuf) -> PathBuf {
 
 pub fn env_flag(name: &str, default: bool) -> bool {
     let fallback = if default { "1" } else { "0" };
-    env::var(name)
-        .unwrap_or_else(|_| fallback.to_string())
-        .trim()
-        .to_ascii_lowercase()
-        .as_str()
-        .matches("1" | "true" | "yes" | "on")
-}
-
-trait MatchesBool {
-    fn matches(&self, accepted: &str) -> bool;
-}
-
-impl MatchesBool for str {
-    fn matches(&self, _accepted: &str) -> bool {
-        matches!(self, "1" | "true" | "yes" | "on")
-    }
+    matches!(
+        env::var(name)
+            .unwrap_or_else(|_| fallback.to_string())
+            .trim()
+            .to_ascii_lowercase()
+            .as_str(),
+        "1" | "true" | "yes" | "on"
+    )
 }
 
 pub fn build_router(state: AppState) -> Router {
