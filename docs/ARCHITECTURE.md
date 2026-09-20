@@ -1,6 +1,6 @@
 # Architecture
 
-MF-Blog keeps the runtime intentionally compact. `app.py` is a single-module engine, while content, semantic templates, core styling, and user overrides remain separate.
+MF-Blog keeps the runtime intentionally compact. The Rust engine is split by responsibility across `src/`, while content, semantic templates, core styling, and user overrides remain separate.
 
 ## Runtime flow
 
@@ -57,7 +57,10 @@ multipart upload
 
 | Path | Responsibility | Expected customization |
 | --- | --- | --- |
-| `app.py` | Parsing, rendering, auth, validation, routes | Engine development |
+| `src/app.rs` | Application state, routing, security middleware | Engine development |
+| `src/content.rs` | Parsing, rendering, content validation | Engine development |
+| `src/auth.rs` | Argon2id, sessions, TOTP | Engine development |
+| `src/handlers.rs` | Public and Writer request handlers | Engine development |
 | `articles/` | User content | Constantly |
 | `site.yaml` | Site identity and homepage text | Freely |
 | `templates/` | Semantic HTML structure | Advanced themes/features |
@@ -66,7 +69,7 @@ multipart upload
 | `static/auth.css` | Login/setup core layout | Engine-level changes |
 | `static/theme.css` | Last-loaded overrides | Freely |
 | `static/writer.js` | Workstation behavior | Feature development |
-| `tests/` | Regression contract | With every behavior change |
+| Rust `#[cfg(test)]` modules | Regression contract | With every behavior change |
 
 ## Important invariants
 
@@ -91,6 +94,6 @@ Runtime caches are intentionally minimal. Article changes and `site.yaml` change
 - Add Markdown behavior in `render_markdown`; update sanitizer allowlists at the same time.
 - Add upload types through `ALLOWED_ASSET_EXTENSIONS`; also review serving, validation, CSP, and documentation.
 - Add visual themes only through tokens/`theme.css` unless semantic markup must change.
-- Add routes behind `@writer_only` when they mutate content.
+- Add Writer routes through the shared authentication/CSRF guard when they mutate content.
 
 When changing an invariant, add a regression test and keep the relevant trust boundary explicit.
