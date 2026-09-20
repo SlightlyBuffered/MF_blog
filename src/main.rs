@@ -5,7 +5,6 @@ mod handlers;
 
 use std::net::SocketAddr;
 
-use axum::extract::connect_info::IntoMakeServiceWithConnectInfo;
 use tracing_subscriber::EnvFilter;
 
 use crate::app::AppState;
@@ -44,7 +43,7 @@ async fn main() {
 
     axum::serve(
         listener,
-        IntoMakeServiceWithConnectInfo::<_, SocketAddr>::new(router),
+        router.into_make_service_with_connect_info::<SocketAddr>(),
     )
     .with_graceful_shutdown(shutdown_signal())
     .await
