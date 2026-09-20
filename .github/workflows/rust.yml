@@ -16,3 +16,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - run: cargo check --all-targets --all-features
       - run: cargo test --all
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cargo-lock
+          path: Cargo.lock
