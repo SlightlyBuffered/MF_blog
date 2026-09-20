@@ -4,8 +4,8 @@
 {% block content %}
   <article class="article">
     <header class="article-header">
-      <a class="back" href="{{ url_for('index') }}">← All articles</a>
-      <time datetime="{{ article.published_at.isoformat() }}">{{ article.published_at.strftime('%d %B %Y') }}</time>
+      <a class="back" href="/">← All articles</a>
+      <time datetime="{{ article.publication_date }}">{{ article.date_long }}</time>
       <h1>{{ article.title }}</h1>
       {% if article.subtitle %}<p>{{ article.subtitle }}</p>{% endif %}
     </header>
