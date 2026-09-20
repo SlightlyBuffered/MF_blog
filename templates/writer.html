@@ -2,7 +2,7 @@
 {% block title %}Writer — {{ site.name }}{% endblock %}
 {% block template_name %}writer{% endblock %}
 {% block head %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='writer.css') }}">
+  <link rel="stylesheet" href="/static/writer.css">
   <meta name="csrf-token" content="{{ csrf_token }}">
 {% endblock %}
 {% block body_class %}writer-body{% endblock %}
@@ -122,4 +122,4 @@
 
 <div id="toast" role="status"></div>
 {% endblock %}
-{% block scripts %}<script src="{{ url_for('static', filename='writer.js') }}" defer></script>{% endblock %}
+{% block scripts %}<script src="/static/writer.js" defer></script>{% endblock %}
